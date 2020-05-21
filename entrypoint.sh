@@ -34,7 +34,7 @@ fi
 
 TZ=${TZ:-"Europe/Amsterdam"}
 echo -e "Setting (PHP) time zone to ${TZ}\n"
-sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g"  /etc/php/7.*/*/php.ini
+sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g"  /etc/php/${PHP_VER}/*/php.ini
 
 if [[ -n "$SPOTWEB_CRON_RETRIEVE" || -n "$SPOTWEB_CRON_CACHE_CHECK" ]]; then
     ln -sf /proc/$$/fd/1 /var/log/stdout
