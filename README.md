@@ -29,14 +29,24 @@ First create a database on your database server, and make sure the container has
 ```
     docker run -it ajw107/spotweb -p <external port>:80
 ```
-**NOTE**: There is no database configuration here, this will enable the install process.
-Then run the Spotweb installer using the web interface `http://<yourhost>:<external port>/install.php`.
-This will create the necessary database tables and users. Ignore the warning when it tries to save the configuration.
-When you are done, exit the container (CTRL/CMD-c) and configure the permanent running container, as follows.
+**NOTE**:
+- There is no database configuration here, this will enable the install process.  Then run the Spotweb installer using the web interface `http://<hostname or ip of docker host>:<external port>/install.php`.  This will create the necessary database tables and users. Ignore the warning when it tries to save the configuration.
+- When you are done, exit the container (CTRL/CMD-c) and configure the permanent running container, as follows.
+- If you get an error similar to `unknown database engine () factory specified` after you have run the initial config more than once, go into the docker container whilst it is still running.  Do not stop it (if you have, please restart it). (replace spotweb with the name you gave the container):
+`docker exec -it spotweb bash`
+Then go to the directory where spotweb is hosted and delete these two files:
+```
+cd /var/www/spotweb
+rm -f dbsettings.inc.php
+rm -f ownsettings.inc.php
+exit
+```
+Then keep the container running and in the browser go back to the first install page `http://<hostname or ip of your docker host>:<external port>/install.php` (you will need to reenter everything, sorry).
+
 
 ### Step 2) Permanent Installation
 **NOTE**: See below for docker-compose example (please only use docker-compose from this step, 2, onwards.  Do not do Step 1 using docker compose)
-To create the permanent
+To create the permanent docker container:
 ```
     docker run --restart=always -d \
         --hostname=spotweb \
