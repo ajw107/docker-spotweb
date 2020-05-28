@@ -1,8 +1,8 @@
 ##This should be a simple one, as it's just rebuilding from the github repo, so no versions and therefore no tagging
 #but still reusin gscript from other dockers, so excuse the amount of commented code (removing version and tagging code)
 USERNAME=ajw107
-IMAGE_NAME=docker-spotweb
-APP_NAME=Spotweb
+IMAGE_NAME=spotweb
+#APP_NAME=Spotweb
 PROG_NAME=SPOTWEB
 #VERSION_FILE=${PROG_NAME}_VER
 #SOURCE_BIND="$(pwd)/VERSION"
