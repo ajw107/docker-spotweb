@@ -1,0 +1,40 @@
+##This should be a simple one, as it's just rebuilding from the github repo, so no versions and therefore no tagging
+#but still reusin gscript from other dockers, so excuse the amount of commented code (removing version and tagging code)
+USERNAME=ajw107
+IMAGE_NAME=docker-spotweb
+APP_NAME=Spotweb
+PROG_NAME=SPOTWEB
+#VERSION_FILE=${PROG_NAME}_VER
+#SOURCE_BIND="$(pwd)/VERSION"
+#TARGET_BIND=/VERSION
+
+#Remove old stuff
+#if [ -z "${SOURCE_BIND}" ]
+#then
+#    rm -rf "${SOURCE_BIND}"
+#fi
+#mkdir "${SOURCE_BIND}"
+#docker rmi ${USERNAME}/${IMAGE_NAME} 
+#docker system prune -af
+
+#build new image
+#docker build --no-cache --build-arg PROG_NAME=${PROG_NAME} --build-arg VERSION_FILE=${TARGET_BIND}/${PROG_NAME}_VER --tag ${USERNAME}/${IMAGE_NAME} .
+docker build --no-cache --build-arg PROG_NAME=${PROG_NAME} --tag ${USERNAME}/${IMAGE_NAME} .
+
+#grab version from it using get_version script file added to it
+#docker run --rm --mount type=bind,source="${SOURCE_BIND}",target="${TARGET_BIND}" ${USERNAME}/${IMAGE_NAME} bash /get_version
+#version=`cat "${SOURCE_BIND}/${VERSION_FILE}"`
+
+#clean up
+#rm -rf "${SOURCE_BIND}"
+
+#tag everything
+#echo "TAGGING WITH: [${version}]"
+#docker tag ${USERNAME}/${IMAGE_NAME}:latest ${USERNAME}/${IMAGE_NAME}:${version}
+##read -p "press return to git tag..."
+#git tag --sign --local-user=5CB32EC33C62EB47 --message="${APP_NAME}-${version}" "${version}"
+##read -p "press return to push..."
+#push it up to the docker hub NOTE git is not pushed as you may want to add/remove new/old files
+#also note if you have a webhook set up between github and dockerhub the dockerhub will rebuild and create an image tagged using the -m parameter of the git tag command above, you may not want this
+docker push ${USERNAME}/${IMAGE_NAME}:latest
+#docker push ${USERNAME}/${IMAGE_NAME}:$version
